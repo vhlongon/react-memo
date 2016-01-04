@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default class App extends React.Component {
+export default class GameTable extends React.Component {
   render() {
     return (
       <div className="app">
@@ -14,6 +14,6 @@ export default class App extends React.Component {
 }
 
 ReactDOM.render(
-	<App title="A react component"/>,
+	<GameTable title="A react memory game"/>,
 	document.querySelector('.react-root')
 );
