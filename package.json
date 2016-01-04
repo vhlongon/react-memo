@@ -1,15 +1,13 @@
 {
-  "name": "babel-gulp-boilerplate",
+  "name": "dlbi-boilerplate-min",
   "version": "0.1.0",
-  "author": "Victor Longon",
-  "description": "Boilerplate using Gulp, Babel and Browserify",
+  "author": "Victor Longon <martin.krafft@digitaslbi.com>",
+  "description": "Memory game built with react",
   "keywords": [
-    "express",
+    "react",
     "gulp",
     "sass",
-    "babel",
-    "Browserify",
-    "boilerplate"
+    "babel"
   ],
   "private": true,
   "engines": {
@@ -17,9 +15,11 @@
   },
   "devDependencies": {
     "babel-core": "^6.3.21",
+    "babel-eslint": "^4.1.6",
     "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
     "babelify": "^7.2.0",
-    "browser-sync": "^2.7.6",
+    "browser-sync": "^2.11.0",
     "browserify": "^12.0.1",
     "del": "^0.1.3",
     "gulp": "^3.8.8",
@@ -43,5 +43,9 @@
     "run-sequence": "^0.3.6",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5"
   }
 }
