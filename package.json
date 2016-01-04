@@ -1,7 +1,7 @@
 {
-  "name": "dlbi-boilerplate-min",
+  "name": "react-memory",
   "version": "0.1.0",
-  "author": "Victor Longon <martin.krafft@digitaslbi.com>",
+  "author": "Victor Longon <vhlongon@yahoo.com.br>",
   "description": "Memory game built with react",
   "keywords": [
     "react",
