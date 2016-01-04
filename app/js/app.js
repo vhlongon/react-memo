@@ -1,13 +1,15 @@
 import React from 'react';
+import Card from './Card';
 import ReactDOM from 'react-dom';
 
 export default class GameTable extends React.Component {
   render() {
     return (
-      <div className="app">
-        <h2 className="app__title">
+      <div className="gametable">
+        <h2 className="gametale__title">
         {this.props.title}
         </h2>
+        <Card title="A card"/>
       </div>
     );
   }
