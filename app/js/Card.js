@@ -5,12 +5,12 @@ export default class Card extends React.Component {
     super(props);
     this.state = {active: false};
   }
-  click() {
+  click  = () => {
     this.setState({active: !this.state.active});
   }
   render() {
     return (
-      <div className={this.state.active ? "card active" : "card"} onClick={this.click.bind(this)}>
+      <div className={this.state.active ? 'card active' : 'card'} onClick={this.click()}>
         <p className="card__title">
         {this.props.title}
         </p>
