@@ -1,20 +1,44 @@
 import React from 'react';
 
 export default class CardsForm extends React.Component {
-  constructor(props) {
+	constructor(props) {
     super(props);
-    this.state = {};
-  }
-  click  = () => {
-    //this.setState({active: !this.state.active});
-  }
+	  this.state = {keyword: '', number: ''};
+	}
+	handleKeywordChange = (e) => {
+    this.setState({keyword: e.target.value});
+	}
+	handleNumberChange = (e) => {
+    this.setState({number: e.target.value});
+	}
+	handleSubmit = (e) => {
+	  e.preventDefault();
+	  let keyword = this.state.keyword.trim().split(' ').join('+');
+	  let number   = this.state.number.trim();
+	  if (!keyword || !number ) {
+		  return;
+		}
+		//send request to the server
+		this.props.onFormSubmit({keyword: keyword, number: number});
+	  this.setState({keyword: '', number: ''});
+	}
   render() {
     return (
-      <div className='cardForm' onClick={this.click()}>
-        <p className="card__title">
-        {this.props.title}
-        </p>
-      </div>
+      <form className="cards-form" onSubmit={this.handleSubmit}>
+        <input
+          type="text"
+          placeholder="Choose a keyword"
+        	value={this.state.keyword}
+          onChange={this.handleKeywordChange}
+        />
+        <input
+        	type="number"
+          placeholder="Choose the max number of cards"
+          value={this.state.number}
+          onChange={this.handleNumberChange}
+        />
+        <input type="submit" value="Try me!" />
+      </form>
     );
   }
 }

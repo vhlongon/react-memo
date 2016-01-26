@@ -10,10 +10,9 @@ export default class Card extends React.Component {
   }
   render() {
     return (
-      <div className={this.state.active ? 'card active' : 'card'} onClick={this.click()}>
-        <p className="card__title">
-        {this.props.title}
-        </p>
+      <div className={this.state.active ? 'card active' : 'card'} onClick={this.click} >
+        <h4 className="card__title"> {this.props.title} </h4>
+        <img src={this.props.bgImage} />
       </div>
     );
   }
