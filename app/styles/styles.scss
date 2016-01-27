@@ -1,3 +1,13 @@
-@import '../../node_modules/normalize.css/normalize';
+// 1. Configuration and helpers
 @import 'partials/variables';
+
+// 2. external
+@import '../../node_modules/normalize.css/normalize';
+
+// 3. base stuff
+@import 'base/base';
+
+// 4. Components
+@import 'components/cards-table';
+@import 'components/cards-list';
 @import 'components/card';

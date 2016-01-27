@@ -17,13 +17,13 @@ export default class CardsTable extends React.Component {
     for (let obj of arr) {
       let clone = JSON.parse(JSON.stringify(obj));
       clone.id = `${obj.id}@2`;
-      console.log(clone);
       doubleArr.push(clone);
     }
     return doubleArr;
   }
 
   loadGhipy = (data) => {
+    this.setState({data: []});
     let baseUrl = 'http://api.giphy.com/v1/gifs/search?q',
       keyword = data.keyword,
       limit = data.number,
@@ -46,8 +46,8 @@ export default class CardsTable extends React.Component {
   }
   render = () => {
     return (
-      <div className="card-table">
-        <h2 className="card-table__title">{this.props.title}</h2>
+      <div className="cards-table">
+        <h2 className="cards-table__title">{this.props.title}</h2>
         <CardsForm onFormSubmit={this.handleFormSubmit} />
         <CardsList data={this.state.data} />
       </div>

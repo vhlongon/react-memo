@@ -1,0 +1,14 @@
+/**********************************************
+Styles for the CardsTable Component in app/js/CardsList.js
+/*********************************************/
+
+.cards-list{
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  max-width: $card-list-max-width;
+  margin: 0 auto;
+}
