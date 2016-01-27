@@ -1,0 +1,35 @@
+/**********************************************
+Styles for the Card Component in app/js/Card.js
+/*********************************************/
+
+.card{
+  height: $card-height;
+  width: $card-width;
+  perspective: 1000;
+  &__container {
+    transition: 0.6s;
+	  transform-style: preserve-3d;
+	  position: relative;
+  }
+  &__front, &__back {
+    height: $card-height;
+    width: $card-width;
+    backface-visibility: hidden;
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  }
+  &__front{
+    background-color: $card-front-color;
+    z-index: 2;
+  	transform: rotateY(0deg);
+  }
+  &__back{
+    transform: rotateY(180deg);
+  }
+  &.clicked{
+    .card__container{
+      transform: rotateY(180deg);
+    }
+  }
+}

@@ -12,15 +12,27 @@ export default class CardsTable extends React.Component {
     this.state = {data: []};
   }
 
+  createDuplicates = (arr) => {
+    let doubleArr = arr.slice(0);
+    for (let obj of arr) {
+      let clone = JSON.parse(JSON.stringify(obj));
+      clone.id = `${obj.id}@2`;
+      console.log(clone);
+      doubleArr.push(clone);
+    }
+    return doubleArr;
+  }
+
   loadGhipy = (data) => {
     let baseUrl = 'http://api.giphy.com/v1/gifs/search?q',
-      keyword= data.keyword,
+      keyword = data.keyword,
       limit = data.number,
       apikey = 'dc6zaTOxFJmzC';
     loadAjax(`${baseUrl}=${keyword}&api_key=${apikey}&limit=${limit}`,
       (xhr) => {
-        let cardsData = JSON.parse(xhr.responseText);
-        this.setState({data: cardsData.data});
+        let cardsData = JSON.parse(xhr.responseText),
+          doubleData = this.createDuplicates(cardsData.data);
+        this.setState({data: doubleData});
       }
     );
   }
@@ -34,8 +46,8 @@ export default class CardsTable extends React.Component {
   }
   render = () => {
     return (
-      <div className="gametable">
-        <h2 className="gametale__title">{this.props.title}</h2>
+      <div className="card-table">
+        <h2 className="card-table__title">{this.props.title}</h2>
         <CardsForm onFormSubmit={this.handleFormSubmit} />
         <CardsList data={this.state.data} />
       </div>
