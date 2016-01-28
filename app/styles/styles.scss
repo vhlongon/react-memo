@@ -1,8 +1,10 @@
 // 1. Configuration and helpers
+@import 'partials/mixins';
 @import 'partials/variables';
 
-// 2. external
+// 2. external dependencies / venoor
 @import '../../node_modules/normalize.css/normalize';
+@import 'vendor/animate';
 
 // 3. base stuff
 @import 'base/base';

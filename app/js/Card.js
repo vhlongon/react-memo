@@ -3,12 +3,15 @@ import React from 'react';
 export default class Card extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {active: false};
+    this.state = {
+      active: false
+    };
   }
-  handleclick  = () => {
+  handleclick  = (ev) => {
     this.setState({active: !this.state.active});
-    //console.log(this.props.title);
+    this.props.onClick();
   }
+
   render() {
     let imgUrl = this.props.bgImage,
       CardBackStyle = {

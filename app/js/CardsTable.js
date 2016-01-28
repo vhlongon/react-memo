@@ -25,8 +25,8 @@ export default class CardsTable extends React.Component {
   loadGhipy = (data) => {
     this.setState({data: []});
     let baseUrl = 'http://api.giphy.com/v1/gifs/search?q',
-      keyword = data.keyword,
-      limit = data.number,
+      keyword = data.keyword || 'cards',
+      limit = data.number || 1,
       apikey = 'dc6zaTOxFJmzC';
     loadAjax(`${baseUrl}=${keyword}&api_key=${apikey}&limit=${limit}`,
       (xhr) => {
@@ -42,7 +42,8 @@ export default class CardsTable extends React.Component {
   }
 
   componentDidMount = () => {
-    //this.loadGhipy();
+    let dummyData = [];
+    this.loadGhipy(dummyData);
   }
   render = () => {
     return (

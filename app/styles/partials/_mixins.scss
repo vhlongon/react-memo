@@ -1,0 +1,13 @@
+//mixin for generating different (increasily) delay time for siblings elements
+@mixin generateIntervalAnimation($count: 1) {
+  @for $i from 1 through $count{
+    &:nth-child(#{$i}){
+      animation-delay: #{$i}s;
+    }
+  }
+}
+
+@mixin animate($animation, $duration: 0.5) {
+  animation-name: $animation;
+  animation-duration: #{$duration}s;
+}

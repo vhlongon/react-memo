@@ -10,6 +10,8 @@ Styles for the Card Component in app/js/Card.js
   max-width: 50%;
   max-height: 50%;
   perspective: 1000;
+  @include animate(fadeIn, 0.5);
+  @include generateIntervalAnimation(5);
   &__container {
     height: $card-small-size;
     width: $card-small-size;
@@ -38,4 +40,9 @@ Styles for the Card Component in app/js/Card.js
       transform: rotateY(180deg);
     }
   }
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }
