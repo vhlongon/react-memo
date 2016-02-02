@@ -10,8 +10,16 @@ Styles for the Card Component in app/js/Card.js
   max-width: 50%;
   max-height: 50%;
   perspective: 1000;
-  @include animate(fadeIn, 0.5);
-  @include generateIntervalAnimation(5);
+
+  // @include animate(fadeIn, 0.5);
+  // @include generateIntervalAnimation(5);
+  //animation-fill-mode:forwards;
+  &.not-clicked {
+    pointer-events: auto;
+  }
+  &.hit {
+    pointer-events: none;
+  }
   &__container {
     height: $card-small-size;
     width: $card-small-size;
@@ -36,6 +44,17 @@ Styles for the Card Component in app/js/Card.js
     transform: rotateY(180deg);
   }
   &.clicked{
+    // pointer-events: none;
+    &.flipback {
+      .card__container{
+        transform: rotateY(0);
+      }
+    }
+    &.not-flip{
+      .card__container{
+        transform: rotateY(180deg);
+      }
+    }
     .card__container{
       transform: rotateY(180deg);
     }
@@ -45,4 +64,22 @@ Styles for the Card Component in app/js/Card.js
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
+}
+
+.c-transition-enter {
+  opacity: 0.01;
+}
+
+.c-transition-enter.c-transition-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.c-transition-leave {
+  opacity: 1;
+}
+
+.c-transition-leave.c-transition-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
 }

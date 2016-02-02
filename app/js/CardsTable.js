@@ -38,12 +38,13 @@ export default class CardsTable extends React.Component {
   }
 
   handleFormSubmit = (formData) => {
+    this.setState({data: []});
     this.loadGhipy(formData);
   }
 
   componentDidMount = () => {
-    let dummyData = [];
-    this.loadGhipy(dummyData);
+    // let dummyData = [];
+    // this.loadGhipy(dummyData);
   }
   render = () => {
     return (

@@ -8,8 +8,18 @@ export default class Card extends React.Component {
     };
   }
   handleclick  = (ev) => {
-    this.setState({active: !this.state.active});
     this.props.onClick();
+    this.setState({active: !this.state.active});
+  }
+
+  componentDidUpdate  = () => {
+
+  }
+
+  componentWillReceiveProps  = () => {
+    // if (this.props.flipBack) {
+    //   this.setState({active: false});
+    // }
   }
 
   render() {
@@ -18,8 +28,10 @@ export default class Card extends React.Component {
         backgroundImage: 'url(' + imgUrl + ')',
         backgroundSize: 'cover'
       },
+      hit = (this.props.hit) ? 'hit' : '',
       activeClass = this.state.active ? 'clicked' : 'not-clicked',
-      classes = `card ${activeClass}`;
+
+      classes = `card ${activeClass} ${hit}`;
     return (
       <div className={classes} onClick={this.handleclick} >
         <div className="card__container">
