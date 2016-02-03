@@ -1,25 +1,11 @@
 import React from 'react';
 
 export default class Card extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: false
-    };
-  }
-  handleclick  = (ev) => {
-    this.props.onClick();
-    this.setState({active: !this.state.active});
-  }
 
-  componentDidUpdate  = () => {
-
-  }
-
-  componentWillReceiveProps  = () => {
-    // if (this.props.flipBack) {
-    //   this.setState({active: false});
-    // }
+  handleclick = (ev) => {
+    if (!this.props.flipped) {
+      this.props.checkMatch(this.props.value, this.props.id);
+    }
   }
 
   render() {
@@ -28,10 +14,10 @@ export default class Card extends React.Component {
         backgroundImage: 'url(' + imgUrl + ')',
         backgroundSize: 'cover'
       },
-      hit = (this.props.hit) ? 'hit' : '',
-      activeClass = this.state.active ? 'clicked' : 'not-clicked',
-
-      classes = `card ${activeClass} ${hit}`;
+      cardFlipped =  this.props.flipped ? 'card--flipped' : '',
+      cardMatched =  this.props.matched ? 'card--matched' : '',
+      classes = `card ${cardFlipped} ${cardMatched}`,
+      cardValue = this.props.flipped ? this.props.value : '';
     return (
       <div className={classes} onClick={this.handleclick} >
         <div className="card__container">

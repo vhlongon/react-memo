@@ -15,6 +15,9 @@ export default class CardsTable extends React.Component {
   createDuplicates = (arr) => {
     let doubleArr = arr.slice(0);
     for (let obj of arr) {
+      //and add matched and flipped properties for every card object
+      obj.matched = false;
+      obj.flipped = false;
       let clone = JSON.parse(JSON.stringify(obj));
       clone.id = `${obj.id}@2`;
       doubleArr.push(clone);

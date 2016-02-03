@@ -22,10 +22,10 @@ export default class CardsForm extends React.Component {
 	    return;
 	  }
 			//send request to the server
-	  this.props.onFormSubmit({keyword: keyword, number: number});
+    this.props.onFormSubmit({keyword: keyword, number: number});
 	  this.setState({keyword: '', number: ''});
 	}
-	
+
   render() {
     return (
       <form className="cards-form" onSubmit={this.handleSubmit}>

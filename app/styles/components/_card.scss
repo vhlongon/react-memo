@@ -10,16 +10,11 @@ Styles for the Card Component in app/js/Card.js
   max-width: 50%;
   max-height: 50%;
   perspective: 1000;
-
+  cursor: pointer;
   // @include animate(fadeIn, 0.5);
   // @include generateIntervalAnimation(5);
   //animation-fill-mode:forwards;
-  &.not-clicked {
-    pointer-events: auto;
-  }
-  &.hit {
-    pointer-events: none;
-  }
+
   &__container {
     height: $card-small-size;
     width: $card-small-size;
@@ -43,21 +38,14 @@ Styles for the Card Component in app/js/Card.js
   &__back{
     transform: rotateY(180deg);
   }
-  &.clicked{
-    // pointer-events: none;
-    &.flipback {
-      .card__container{
-        transform: rotateY(0);
-      }
-    }
-    &.not-flip{
-      .card__container{
-        transform: rotateY(180deg);
-      }
-    }
+  &--flipped{
     .card__container{
       transform: rotateY(180deg);
     }
+  }
+  &--matched {
+    cursor: not-allowed;
+    pointer-events: null;
   }
 }
 

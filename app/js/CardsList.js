@@ -7,59 +7,92 @@ export default class CardsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cardsInPlay: [],
-      cardsOutOfPlay: [],
-      picks: [],
-
+      cards: [],
+      lastCard: null,
+      locked: false,
+      matches: 0
     };
   }
-  handleCardClick = (i) => {
-    let item = this.props.data[i],
-      picks = this.state.picks,
-      newPicks = picks.concat([item]);
-      //t = this.state.turns + 1;
 
-    // this.setState(
-    //   {turns: t, change: t >= 2, currentItem: item.slug}
-    // );
-    // if (t >= 2) {
-    //   this.setState({turns: -1});
-    // }
-    //
-    // if (item.slug === this.state.currentItem) {
-    //   this.setState({hit: true});
-    // }else {
-    //   this.setState({hit: false});
-    // }
+  checkMatch = (value, id) => {
+    if (this.state.locked) {
+      return;
+    }
 
-    this.setState({picks: newPicks});
+    let cards = this.state.cards;
+    cards[id].flipped = true;
+    this.setState({cards, locked: true});
+    if (this.state.lastCard) {
+      if (value === this.state.lastCard.value) {
+        let matches = this.state.matches;
+        cards[id].matched = true;
+        cards[this.state.lastCard.id].matched = true;
+        setTimeout(() => {
+          this.setState({cards, lastCard: null, locked: false, matches: matches + 1});
+        }, 2000);
+      } else {
+        setTimeout(() => {
+          cards[id].flipped = false;
+          cards[this.state.lastCard.id].flipped = false;
+          this.setState({cards, lastCard: null, locked: false});
+        }, 1000);
+      }
+    } else {
+      this.setState({
+        lastCard: {id, value},
+        locked: false
+      });
+    }
   }
 
   componentWillReceiveProps  = () => {
     setTimeout(() => {
-      this.setState({cardsInPlay: this.props.data});
+      this.setState({cards: this.props.data});
     }, 300);
   }
 
-
-  render() {
-    let cards = this.props.data.map((card, i) => {
+  renderCards = () => {
+    return this.props.data.map((card, i) => {
       return (
-        <Card onClick={() => this.handleCardClick(i)}
+        <Card
           title={card.slug}
-          hit={this.state.hit}
-          flipBack={this.state.change}
+          value={card.slug}
+          matched={card.matched}
+          flipped={card.flipped}
+          checkMatch={this.checkMatch}
+          id={i}
           key={card.id}
           bgImage={card.images.original.url}
         />
       );
     });
+  }
+
+  renderContent = () => {
+    let isGameOver = this.state.matches === this.state.cards.length / 2 && this.props.data.length > 0;
+    console.log(isGameOver);
+    if (isGameOver) {
+      return  <div className="cards-list--over">Game is over</div>;
+    } else {
+      return this.renderCards();
+    }
+  }
+  render() {
+      // {function renderList() {
+      //   if (!isGameOver) {
+      //     console.log('not over yet');
+      //     this.renderCards;
+      //   }else {
+      //     return <div className="cards-list--over">Game is over</div>;
+      //   }
+      // }.call(this)}
     return (
       <div className="cards-list">
-      <ReactCSSTransitionGroup transitionName="c-transition" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-        {cards}
-      </ReactCSSTransitionGroup>
+        <ReactCSSTransitionGroup transitionName="c-transition" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+          {this.renderContent()}
+        </ReactCSSTransitionGroup>
       </div>
     );
   }
+
 }
