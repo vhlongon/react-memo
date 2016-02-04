@@ -45,6 +45,12 @@ export default class CardsTable extends React.Component {
     this.loadGhipy(formData);
   }
 
+  resetMatch = (b) => {
+    if (b) {
+      this.setState({data: []});
+    }
+  }
+
   componentDidMount = () => {
     // let dummyData = [];
     // this.loadGhipy(dummyData);
@@ -54,7 +60,7 @@ export default class CardsTable extends React.Component {
       <div className="cards-table">
         <h2 className="cards-table__title">{this.props.title}</h2>
         <CardsForm onFormSubmit={this.handleFormSubmit} />
-        <CardsList data={this.state.data} />
+        <CardsList data={this.state.data} resetMatch={this.resetMatch} />
       </div>
     );
   }

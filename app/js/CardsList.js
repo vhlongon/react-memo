@@ -7,10 +7,11 @@ export default class CardsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
+      // cards: [],
       lastCard: null,
       locked: false,
-      matches: 0
+      matches: 0,
+      matchOver: false,
     };
   }
 
@@ -19,7 +20,7 @@ export default class CardsList extends React.Component {
       return;
     }
 
-    let cards = this.state.cards;
+    let cards = this.props.data;
     cards[id].flipped = true;
     this.setState({cards, locked: true});
     if (this.state.lastCard) {
@@ -29,7 +30,11 @@ export default class CardsList extends React.Component {
         cards[this.state.lastCard.id].matched = true;
         setTimeout(() => {
           this.setState({cards, lastCard: null, locked: false, matches: matches + 1});
-        }, 2000);
+          if (this.state.matches === this.props.data.length / 2) {
+            //we have a winner
+            this.setState({matchOver: true, matches: 0});
+          }
+        }, 1000);
       } else {
         setTimeout(() => {
           cards[id].flipped = false;
@@ -46,9 +51,9 @@ export default class CardsList extends React.Component {
   }
 
   componentWillReceiveProps  = () => {
-    setTimeout(() => {
-      this.setState({cards: this.props.data});
-    }, 300);
+    // setTimeout(() => {
+    //   this.setState({cards: this.props.data});
+    // }, 100);
   }
 
   renderCards = () => {
@@ -68,15 +73,12 @@ export default class CardsList extends React.Component {
     });
   }
 
-  renderContent = () => {
-    let isGameOver = this.state.matches === this.state.cards.length / 2 && this.props.data.length > 0;
-    console.log(isGameOver);
-    if (isGameOver) {
-      return  <div className="cards-list--over">Game is over</div>;
-    } else {
-      return this.renderCards();
-    }
+  reset = (e) => {
+    e.preventDefault();
+    this.props.resetMatch(true);
+    this.setState({matchOver: false, matches: 0});
   }
+
   render() {
       // {function renderList() {
       //   if (!isGameOver) {
@@ -86,11 +88,19 @@ export default class CardsList extends React.Component {
       //     return <div className="cards-list--over">Game is over</div>;
       //   }
       // }.call(this)}
+    let isGameOver = this.state.matches === this.props.data.length / 2 && this.props.data.length > 0,
+      buttonText = isGameOver ? 'play again' : 'reset',
+      buttonClass = `reset-btn ${isGameOver ? 'reset-btn--over' : 'reset-btn--on'}`,
+      listClass = `cards-list ${this.state.matchOver ? 'cards-list--over' : 'cards-list--on'}`;
     return (
-      <div className="cards-list">
-        <ReactCSSTransitionGroup transitionName="c-transition" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-          {this.renderContent()}
+      <div className={listClass} >
+        <ReactCSSTransitionGroup
+          transitionName="c-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+            {this.renderCards()}
         </ReactCSSTransitionGroup>
+        <div className={buttonClass} onClick={this.reset.bind(this)}>{buttonText}</div>
       </div>
     );
   }

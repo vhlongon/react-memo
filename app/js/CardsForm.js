@@ -1,10 +1,10 @@
 import React from 'react';
 
 export default class CardsForm extends React.Component {
-	constructor(props) {
-	  super(props);
-	  this.state = {keyword: '', number: ''};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {keyword: '', number: ''};
+  }
 
 	handleKeywordChange = (e) => {
   	this.setState({keyword: e.target.value});
@@ -14,17 +14,17 @@ export default class CardsForm extends React.Component {
   	this.setState({number: e.target.value});
 	}
 
-	handleSubmit = (e) => {
-		e.preventDefault();
-	  let keyword = this.state.keyword.trim().split(' ').join('+'),
-	    number   = this.state.number.trim();
-	  if (!keyword || !number ) {
-	    return;
-	  }
-			//send request to the server
+  handleSubmit = (e) => {
+    e.preventDefault();
+    let keyword = this.state.keyword.trim().split(' ').join('+'),
+      number   = this.state.number.trim();
+    if (!keyword || !number ) {
+      return;
+    }
+    //send request to the server
     this.props.onFormSubmit({keyword: keyword, number: number});
-	  this.setState({keyword: '', number: ''});
-	}
+    this.setState({keyword: '', number: ''});
+  }
 
   render() {
     return (

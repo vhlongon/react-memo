@@ -4,4 +4,9 @@ Styles for the CardsTable Component in app/js/CardsTable.js
 
 .cards-table{
   text-align: center;
+  position: relative;
+  height: 100%;
+  &__title{
+    margin-top: 0;
+  }
 }
