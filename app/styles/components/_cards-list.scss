@@ -3,7 +3,7 @@ Styles for the CardsTable Component in app/js/CardsList.js
 /*********************************************/
 
 .cards-list{
-  margin-top: 4em;
+  margin-top: 2em;
   padding: 4em 2em;
   min-height: 800px;
   background: url('/images/bg.jpg') repeat;
@@ -38,6 +38,12 @@ Styles for the CardsTable Component in app/js/CardsList.js
       left: 10%;
       top: 37.5%;
     }
+  }
+  //message shown if no results are found
+  &__message {
+    margin-top: 2em;
+    color: $green;
+    font-size: 2rem;
   }
 }
 

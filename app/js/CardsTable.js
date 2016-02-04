@@ -12,7 +12,8 @@ export default class CardsTable extends React.Component {
     super(props);
     this.state = {
       data: [],
-      showForm: true
+      showForm: true,
+      listMessage: ''
     };
   }
 
@@ -47,13 +48,20 @@ export default class CardsTable extends React.Component {
   }
 
   handleFormSubmit = (formData) => {
-    this.setState({data: [], showForm: false});
+    this.setState({data: [], listMessage: ''});
     this.loadGhipy(formData);
+    setTimeout(() => {
+      if (this.state.data.length > 0) {
+        this.setState({showForm: false, listMessage: ''});
+      } else {
+        this.setState({listMessage: 'Sorry, no matches. Try something else!'});
+      }
+    }, 300);
   }
 
   resetMatch = (b) => {
     if (b) {
-      this.setState({data: [], showForm: true});
+      this.setState({data: [], showForm: true, listMessage: ''});
     }
   }
 
@@ -70,6 +78,7 @@ export default class CardsTable extends React.Component {
           <div className="cards-table">
             <h2 className="cards-table__title">{this.props.title}</h2>
             <CardsForm onFormSubmit={this.handleFormSubmit} isVisible={this.state.showForm} />
+            <div className='cards-list__message'>{this.state.listMessage}</div>
             <CardsList data={this.state.data} resetMatch={this.resetMatch} />
           </div>
       </ReactCSSTransitionGroup>
