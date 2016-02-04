@@ -1,6 +1,6 @@
 # Compiled source #
 ###################
-build/
+# build/ #
 dist/
 node_modules/
 
