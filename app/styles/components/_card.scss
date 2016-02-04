@@ -21,6 +21,9 @@ Styles for the Card Component in app/js/Card.js
     transition: 0.6s;
 	  transform-style: preserve-3d;
 	  position: relative;
+    border: 6px solid $card-border-color;
+    border-radius: 2px;
+    box-sizing: content-box;
   }
   &__front, &__back {
     height: $card-small-size;
@@ -47,27 +50,14 @@ Styles for the Card Component in app/js/Card.js
     cursor: not-allowed;
     pointer-events: null;
   }
+  &__title {
+
+    color: $card-title-color;
+    text-shadow: 2px 2px 20px rgb(89, 56, 0);
+  }
 }
 
 @keyframes fadeIn {
     from {opacity: 0;}
     to {opacity: 1;}
-}
-
-.c-transition-enter {
-  opacity: 0.01;
-}
-
-.c-transition-enter.c-transition-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.c-transition-leave {
-  opacity: 1;
-}
-
-.c-transition-leave.c-transition-leave-active {
-  opacity: 0.01;
-  transition: opacity 500ms ease-in;
 }

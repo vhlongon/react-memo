@@ -4,6 +4,23 @@ Variables declarations
 
 //colors
 $grey: rgb(80, 92, 85);
+$light-grey: rgb(133, 148, 139);
+$off-white: rgb(240, 240, 240);
+$orange: rgb(224, 185, 91);
+$dark-orange: rgb(177, 138, 90);
+$green: rgb(0,166,81);
+$light-green: rgb(105, 181, 142);
+$dark-green: rgb(3, 91, 46);
+
+$bg-color: $off-white;
+
+$btn-primary-color: $green;
+$btn-neutral-color: $light-grey;
+$input-primary-color: $green;
+$input-neutral-color: $light-grey;
+
+$card-border-color: $dark-orange;
+$card-title-color: $orange;
 
 //Component specific
 $card-front-color: $grey;

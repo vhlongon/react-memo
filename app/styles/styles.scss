@@ -1,6 +1,6 @@
 // 1. Configuration and helpers
-@import 'partials/mixins';
 @import 'partials/variables';
+@import 'partials/mixins';
 
 // 2. external dependencies / venoor
 @import '../../node_modules/normalize.css/normalize';
@@ -11,5 +11,6 @@
 
 // 4. Components
 @import 'components/cards-table';
+@import 'components/cards-form';
 @import 'components/cards-list';
 @import 'components/card';

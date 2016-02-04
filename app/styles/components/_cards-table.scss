@@ -1,12 +1,14 @@
-/**********************************************
-Styles for the CardsTable Component in app/js/CardsTable.js
-/*********************************************/
+/************************************************************
+Styles for the CardsForm Component in app/js/CardsForm.js
+/***********************************************************/
 
 .cards-table{
   text-align: center;
   position: relative;
   height: 100%;
   &__title{
-    margin-top: 0;
+    color: $green;
+    margin-top: 2em;
+    line-height: 1;
   }
 }

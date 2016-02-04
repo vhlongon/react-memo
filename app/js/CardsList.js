@@ -11,7 +11,7 @@ export default class CardsList extends React.Component {
       lastCard: null,
       locked: false,
       matches: 0,
-      matchOver: false,
+      matchOver: false
     };
   }
 
@@ -33,6 +33,9 @@ export default class CardsList extends React.Component {
           if (this.state.matches === this.props.data.length / 2) {
             //we have a winner
             this.setState({matchOver: true, matches: 0});
+            setTimeout(() => {
+              this.reset();
+            }, 4000);
           }
         }, 1000);
       } else {
@@ -58,9 +61,10 @@ export default class CardsList extends React.Component {
 
   renderCards = () => {
     return this.props.data.map((card, i) => {
+      let shortTile = card.slug.substring(0, 10).replace(/[0-9]/g, '');
       return (
         <Card
-          title={card.slug}
+          title={shortTile}
           value={card.slug}
           matched={card.matched}
           flipped={card.flipped}
@@ -74,7 +78,9 @@ export default class CardsList extends React.Component {
   }
 
   reset = (e) => {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
     this.props.resetMatch(true);
     this.setState({matchOver: false, matches: 0});
   }

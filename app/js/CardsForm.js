@@ -3,7 +3,10 @@ import React from 'react';
 export default class CardsForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {keyword: '', number: ''};
+    this.state = {
+      keyword: '',
+      number: ''
+    };
   }
 
 	handleKeywordChange = (e) => {
@@ -27,8 +30,10 @@ export default class CardsForm extends React.Component {
   }
 
   render() {
+    let isVisible = this.props.isVisible ? 'cards-form--visible' : 'cards-form--hidden',
+      formClass = `cards-form ${isVisible}`;
     return (
-      <form className="cards-form" onSubmit={this.handleSubmit}>
+      <form className={formClass} onSubmit={this.handleSubmit}>
         <input
           type="text"
           placeholder="Choose a keyword"

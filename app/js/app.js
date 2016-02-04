@@ -6,6 +6,6 @@ import CardsTable from './CardsTable';
 window.React = require('React');
 
 ReactDOM.render(
-	<CardsTable />,
+	<CardsTable title='A React memory game'/>,
 	document.querySelector('.react-root')
 );

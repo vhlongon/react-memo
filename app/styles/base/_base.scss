@@ -7,13 +7,19 @@ This file contains very basic styles.
  */
 html {
   box-sizing: border-box;
+  font-size: 62.5%;
 
+}
+
+body {
+  font-size: 1.6rem;
 }
 
 html, body, .react-root {
   height: 100%;
   margin: 0;
   padding: 0;
+  background-color: $bg-color;
 }
 
 /**
@@ -37,4 +43,31 @@ a {
   //   color: $text-color;
   //   text-decoration: underline;
   // }
+}
+
+//react root element
+.react-root {
+  max-width: 80%;
+  margin: 0 auto;
+  position: relative;
+}
+
+
+/// ReactCSSTransitionGroup animation styles
+.c-transition-enter {
+  opacity: 0.01;
+}
+
+.c-transition-enter.c-transition-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.c-transition-leave {
+  opacity: 1;
+}
+
+.c-transition-leave.c-transition-leave-active {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
 }

@@ -1,4 +1,4 @@
-//mixin for generating different (increasily) delay time for siblings elements
+//mixin for generating different (increasily) delay time for siblings elrements
 @mixin generateIntervalAnimation($count: 1, $interval: 0.5) {
   @for $i from 1 through $count{
     &:nth-child(#{$i}){
@@ -10,4 +10,49 @@
 @mixin animate($animation, $duration: 0.5) {
   animation-name: $animation;
   animation-duration: #{$duration}s;
+}
+
+@mixin vertical-align($position: relative) {
+  position: $position;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+@mixin flatButton($bg: $btn-primary-color, $color: $off-white) {
+  display: inline-block;
+  background-color: $bg;
+  border: none;
+  color: $color;
+  letter-spacing: .5px;
+  border-radius: 6px;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  box-shadow: 0 7px darken($bg, 7.5%);
+  margin: 0 0 0 1rem;
+  padding: 1.25rem 1.5rem;
+  -webkit-appearance: none;
+  vertical-align: bottom;
+  transition: background-color .3s;
+  &:hover{
+    background-color: darken($bg, 2.5%);
+  }
+  &:active{
+    box-shadow: 0 3px darken($bg, 7.5%);
+    transform: translateY(3px);
+  }
+}
+
+@mixin flatInput($border: $input-primary-color) {
+  display: inline-block;
+  box-shadow: none;
+  border-color: $border;
+  border-style: solid;
+  border-width: 4px;
+  border-radius: 6px;
+  line-height: 1;
+  font-size: 1.6rem;
+  margin-left: 1rem;
+  padding: 1.25rem 1.5rem;
+  -webkit-appearance: none;
+  box-sizing: border-box;
 }

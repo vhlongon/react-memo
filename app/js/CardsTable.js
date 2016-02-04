@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Card from './Card';
 import CardsList from './CardsList';
 import CardsForm from './CardsForm';
@@ -9,7 +10,10 @@ import ReactDOM from 'react-dom';
 export default class CardsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {data: []};
+    this.state = {
+      data: [],
+      showForm: true
+    };
   }
 
   createDuplicates = (arr) => {
@@ -22,6 +26,8 @@ export default class CardsTable extends React.Component {
       clone.id = `${obj.id}@2`;
       doubleArr.push(clone);
     }
+    // randomize the cards
+    doubleArr.sort(function randomizeArray() { return 0.5 - Math.random(); });
     return doubleArr;
   }
 
@@ -41,13 +47,13 @@ export default class CardsTable extends React.Component {
   }
 
   handleFormSubmit = (formData) => {
-    this.setState({data: []});
+    this.setState({data: [], showForm: false});
     this.loadGhipy(formData);
   }
 
   resetMatch = (b) => {
     if (b) {
-      this.setState({data: []});
+      this.setState({data: [], showForm: true});
     }
   }
 
@@ -57,11 +63,16 @@ export default class CardsTable extends React.Component {
   }
   render = () => {
     return (
-      <div className="cards-table">
-        <h2 className="cards-table__title">{this.props.title}</h2>
-        <CardsForm onFormSubmit={this.handleFormSubmit} />
-        <CardsList data={this.state.data} resetMatch={this.resetMatch} />
-      </div>
+      <ReactCSSTransitionGroup
+          transitionName="c-transition"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
+          <div className="cards-table">
+            <h2 className="cards-table__title">{this.props.title}</h2>
+            <CardsForm onFormSubmit={this.handleFormSubmit} isVisible={this.state.showForm} />
+            <CardsList data={this.state.data} resetMatch={this.resetMatch} />
+          </div>
+      </ReactCSSTransitionGroup>
     );
   }
 }

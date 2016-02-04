@@ -1,0 +1,30 @@
+/**********************************************
+Styles for the CardsTable Component in app/js/CardsList.js
+/*********************************************/
+
+.cards-form{
+  transition: all 0.3s;
+  &--visible{
+    opacity: 1;
+  }
+  &--hidden{
+    opacity: 0;
+  }
+}
+
+input {
+  line-height: 0;
+  &:active, &:focus {
+    outline: none;
+  }
+}
+
+input[type='submit']{
+  @include flatButton();
+  position: relative;
+  top: -0.7rem;
+}
+
+input[type='text'], input[type='number'] {
+  @include flatInput();
+}
