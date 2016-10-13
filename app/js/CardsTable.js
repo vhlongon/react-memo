@@ -43,20 +43,20 @@ export default class CardsTable extends React.Component {
         let cardsData = JSON.parse(xhr.responseText),
           doubleData = this.createDuplicates(cardsData.data);
         this.setState({data: doubleData});
+
+        setTimeout(() => {
+          if (this.state.data.length > 0) {
+            this.setState({showForm: false, listMessage: ''});
+          } else {
+            this.setState({listMessage: 'Sorry, no matches. Try something else!'});
+          }
+        }, 300);
       }
     );
   }
 
   handleFormSubmit = (formData) => {
-    this.setState({data: [], listMessage: ''});
     this.loadGhipy(formData);
-    setTimeout(() => {
-      if (this.state.data.length > 0) {
-        this.setState({showForm: false, listMessage: ''});
-      } else {
-        this.setState({listMessage: 'Sorry, no matches. Try something else!'});
-      }
-    }, 300);
   }
 
   resetMatch = (b) => {
