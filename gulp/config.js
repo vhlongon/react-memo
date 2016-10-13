@@ -29,7 +29,7 @@ export default {
   },
 
   images: {
-	src: 'app/images/**/*',
+	src: ['app/images/**/*', 'app/images/*'],
 	dest: 'build/images',
 	prodDest: 'dist/images'
   },

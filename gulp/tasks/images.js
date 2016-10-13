@@ -8,7 +8,6 @@ import imagemin    from 'gulp-imagemin';
 import browserSync from 'browser-sync';
 
 gulp.task('images', function() {
-
   return gulp.src(config.images.src)
     .pipe(changed(config.images.dest)) // Ignore unchanged files
     .pipe(gulpif(global.isProd, imagemin())) // Optimize
