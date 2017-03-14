@@ -9,29 +9,32 @@ export default class CardsForm extends React.Component {
     };
   }
 
-	handleKeywordChange = (e) => {
+	handleKeywordChange = e => {
   	this.setState({keyword: e.target.value});
 	}
 
-	handleNumberChange = (e) => {
+	handleNumberChange = e => {
   	this.setState({number: e.target.value});
 	}
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-    let keyword = this.state.keyword.trim().split(' ').join('+'),
-      number   = this.state.number.trim();
+    const keyword = this.state.keyword.trim().split(' ').join('+');
+    const number   = this.state.number.trim();
     if (!keyword || !number ) {
       return;
     }
     //send request to the server
     this.props.onFormSubmit({keyword: keyword, number: number});
-    this.setState({keyword: '', number: ''});
+    this.setState({
+      keyword: '', 
+      number: ''
+    });
   }
 
   render() {
-    let isVisible = this.props.isVisible ? 'cards-form--visible' : 'cards-form--hidden',
-      formClass = `cards-form ${isVisible}`;
+    const visibility = this.props.isVisible ? 'visible' : 'hidden';
+    const formClass = `cards-form cards-form--${visibility}`;
     return (
       <form className={formClass} onSubmit={this.handleSubmit}>
         <input

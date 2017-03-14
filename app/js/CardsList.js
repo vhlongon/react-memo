@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Card from './Card';
 
 
-export default class CardsList extends React.Component {
+export default class CardsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // cards: [],
       lastCard: null,
       locked: false,
       matches: 0,
@@ -16,23 +15,34 @@ export default class CardsList extends React.Component {
   }
 
   checkMatch = (value, id) => {
-    if (this.state.locked) {
-      return;
-    }
+    if (this.state.locked) return;
 
-    let cards = this.props.data;
+    const cards = this.props.data;
     cards[id].flipped = true;
-    this.setState({cards, locked: true});
+    this.setState({
+      cards, 
+      locked: true
+    });
+
     if (this.state.lastCard) {
       if (value === this.state.lastCard.value) {
-        let matches = this.state.matches;
+        const matches = this.state.matches;
         cards[id].matched = true;
         cards[this.state.lastCard.id].matched = true;
         setTimeout(() => {
-          this.setState({cards, lastCard: null, locked: false, matches: matches + 1});
+          this.setState({
+            cards, lastCard: null, 
+            locked: false, 
+            matches: matches + 1
+          });
+
           if (this.state.matches === this.props.data.length / 2) {
             //we have a winner
-            this.setState({matchOver: true, matches: 0});
+            this.setState({
+              matchOver: true, 
+              matches: 0}
+            );
+
             setTimeout(() => {
               this.reset();
             }, 4000);
@@ -42,9 +52,15 @@ export default class CardsList extends React.Component {
         setTimeout(() => {
           cards[id].flipped = false;
           cards[this.state.lastCard.id].flipped = false;
-          this.setState({cards, lastCard: null, locked: false});
+
+          this.setState({
+            cards, 
+            lastCard: null, 
+            locked: false}
+          );
         }, 1000);
       }
+    // Not the last card so just update the state for the current card
     } else {
       this.setState({
         lastCard: {id, value},
@@ -53,51 +69,39 @@ export default class CardsList extends React.Component {
     }
   }
 
-  componentWillReceiveProps  = () => {
-    // setTimeout(() => {
-    //   this.setState({cards: this.props.data});
-    // }, 100);
-  }
-
   renderCards = () => {
     return this.props.data.map((card, i) => {
-      let shortTile = card.slug.substring(0, 10).replace(/[0-9]/g, '');
+      const {slug, matched, flipped, id, images} = card;
+      const shortTile = slug.substring(0, 10).replace(/[0-9]/g, '');
       return (
         <Card
           title={shortTile}
-          value={card.slug}
-          matched={card.matched}
-          flipped={card.flipped}
+          value={slug}
+          matched={matched}
+          flipped={flipped}
           checkMatch={this.checkMatch}
           id={i}
-          key={card.id}
-          bgImage={card.images.original.url}
+          key={id}
+          bgImage={images.original.url}
         />
       );
     });
   }
 
   reset = (e) => {
-    if (e) {
-      e.preventDefault();
-    }
+    e && e.preventDefault();
     this.props.resetMatch(true);
-    this.setState({matchOver: false, matches: 0});
+    this.setState({
+      matchOver: false, 
+      matches: 0
+    });
   }
 
   render() {
-      // {function renderList() {
-      //   if (!isGameOver) {
-      //     console.log('not over yet');
-      //     this.renderCards;
-      //   }else {
-      //     return <div className="cards-list--over">Game is over</div>;
-      //   }
-      // }.call(this)}
-    let isGameOver = this.state.matches === this.props.data.length / 2 && this.props.data.length > 0,
-      buttonText = isGameOver ? 'play again' : 'reset',
-      buttonClass = `reset-btn ${isGameOver ? 'reset-btn--over' : 'reset-btn--on'}`,
-      listClass = `cards-list ${this.state.matchOver ? 'cards-list--over' : 'cards-list--on'}`;
+    const isGameOver = (this.state.matches === this.props.data.length / 2) && this.props.data.length > 0;
+    const buttonText = isGameOver ? 'play again' : 'reset';
+    const buttonClass = `reset-btn ${isGameOver ? 'reset-btn--over' : 'reset-btn--on'}`;
+    const listClass = `cards-list ${this.state.matchOver ? 'cards-list--over' : 'cards-list--on'}`;
     return (
       <div className={listClass} >
         <ReactCSSTransitionGroup

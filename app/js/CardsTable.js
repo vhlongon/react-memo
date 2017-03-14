@@ -1,13 +1,12 @@
-import React from 'react';
+import React, {Component} from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Card from './Card';
 import CardsList from './CardsList';
 import CardsForm from './CardsForm';
 import loadAjax from './helpers/ajax';
-
 import ReactDOM from 'react-dom';
 
-export default class CardsTable extends React.Component {
+export default class CardsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,35 +17,36 @@ export default class CardsTable extends React.Component {
   }
 
   createDuplicates = (arr) => {
-    let doubleArr = arr.slice(0);
-    for (let obj of arr) {
-      //and add matched and flipped properties for every card object
-      obj.matched = false;
-      obj.flipped = false;
-      let clone = JSON.parse(JSON.stringify(obj));
-      clone.id = `${obj.id}@2`;
-      doubleArr.push(clone);
-    }
-    // randomize the cards
-    doubleArr.sort(function randomizeArray() { return 0.5 - Math.random(); });
-    return doubleArr;
+    const doubleArray = arr
+      .reduce((acc, item) => {
+        item.matched = false;
+        item.flipped = false;
+        const clone = Object.assign({}, item, { id: `${item.id}@2`});
+        return [...acc, item, clone];
+      }, [])
+      .sort(() => 0.5 - Math.random());
+
+    return doubleArray;
   }
 
-  loadGhipy = (data) => {
+  loadGhipy = ({keyword, number}) => {
     this.setState({data: []});
-    let baseUrl = 'http://api.giphy.com/v1/gifs/search?q',
-      keyword = data.keyword || 'cards',
-      limit = data.number || 1,
-      apikey = 'dc6zaTOxFJmzC';
-    loadAjax(`${baseUrl}=${keyword}&api_key=${apikey}&limit=${limit}`,
+    const baseUrl = 'http://api.giphy.com/v1/gifs/search?q';
+    const apikey = 'dc6zaTOxFJmzC';
+
+    loadAjax(`${baseUrl}=${keyword || 'cards'}&api_key=${apikey}&limit=${number || 1}`,
       (xhr) => {
-        let cardsData = JSON.parse(xhr.responseText),
-          doubleData = this.createDuplicates(cardsData.data);
+        const cardsData = JSON.parse(xhr.responseText);
+        const doubleData = this.createDuplicates(cardsData.data);
+
         this.setState({data: doubleData});
 
         setTimeout(() => {
           if (this.state.data.length > 0) {
-            this.setState({showForm: false, listMessage: ''});
+            this.setState({
+              showForm: false, 
+              listMessage: ''
+            });
           } else {
             this.setState({listMessage: 'Sorry, no matches. Try something else!'});
           }
@@ -59,18 +59,15 @@ export default class CardsTable extends React.Component {
     this.loadGhipy(formData);
   }
 
-  resetMatch = (b) => {
-    if (b) {
-      this.setState({data: [], showForm: true, listMessage: ''});
-    }
+  resetMatch = () => {
+    this.setState({
+      data: [], 
+      showForm: true, 
+      listMessage: ''
+    });
   }
 
-  componentDidMount = () => {
-    // let dummyData = [];
-    // this.loadGhipy(dummyData);
-  }
-  render = () => {
-    return (
+  render = () => (
       <ReactCSSTransitionGroup
           transitionName="c-transition"
           transitionEnterTimeout={500}
@@ -82,6 +79,5 @@ export default class CardsTable extends React.Component {
             <CardsList data={this.state.data} resetMatch={this.resetMatch} />
           </div>
       </ReactCSSTransitionGroup>
-    );
-  }
+  );
 }

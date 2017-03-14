@@ -1,23 +1,23 @@
-import React from 'react';
+import React, {Component} from 'react';
 
-export default class Card extends React.Component {
+export default class Card extends Component {
 
-  handleclick = (ev) => {
+  handleclick = (e) => {
     if (!this.props.flipped) {
       this.props.checkMatch(this.props.value, this.props.id);
     }
   }
 
   render() {
-    let imgUrl = this.props.bgImage,
-      CardBackStyle = {
-        backgroundImage: 'url(' + imgUrl + ')',
-        backgroundSize: 'cover'
-      },
-      cardFlipped =  this.props.flipped ? 'card--flipped' : '',
-      cardMatched =  this.props.matched ? 'card--matched' : '',
-      classes = `card ${cardFlipped} ${cardMatched}`,
-      cardValue = this.props.flipped ? this.props.value : '';
+    const imgUrl = this.props.bgImage;
+    const CardBackStyle = {
+      backgroundImage: `url(${imgUrl})`,
+      backgroundSize: 'cover'
+    };
+    const cardFlipped =  this.props.flipped && 'card--flipped';
+    const cardMatched =  this.props.matched && 'card--matched';
+    const classes = `card ${cardFlipped} ${cardMatched}`;
+    const cardValue = this.props.flipped && this.props.value;
     return (
       <div className={classes} onClick={this.handleclick} >
         <div className="card__container">
